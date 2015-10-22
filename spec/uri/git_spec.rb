@@ -21,4 +21,17 @@ describe URI::Git do
       expect(subject.include? '://').to be false
     end
   end
+
+  describe '#to_https' do
+    subject { URI::Git.parse('git@github.com:saraid/uri-git.git').to_https }
+
+    it 'should return a URI::HTTPS object' do
+      expect(subject).to be_a(URI::HTTPS)
+    end
+
+    it 'should be usable as a URI object' do
+      subject.path += '/pulls'
+      expect(subject.to_s).to eq('https://github.com/saraid/uri-git/pulls')
+    end
+  end
 end

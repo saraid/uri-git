@@ -31,5 +31,9 @@ module URI
   def to_remote_str
     to_s[6..-1] + ":#{repo}"
   end
+
+  def to_https
+    URI::HTTPS.build({ host: host, path: "/#{repo.sub('.git', '')}" })
+  end
   @@schemes['GIT'] = Git
 end
